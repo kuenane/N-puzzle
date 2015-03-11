@@ -1,2 +1,2 @@
 # N-puzzle
-IA that resolves a N-puzzle
+An IA that resolves N-puzzles with an A* algorithm.
