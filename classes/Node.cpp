@@ -5,21 +5,28 @@ Node::Node(void)
 	return ;
 }
 
-
 Node::~Node(void)
 {
 	return ;
 }
-
 
 Node::Node(Node const &copy)
 {
 	*this = copy;
 }
 
-
 Node 				&Node::operator=(Node const &rhs)
 {
-	static_cast<void>(rhs);
+	_parent = rhs.getParent();
 	return (*this);
+}
+
+Node				getParent(void) const
+{
+	return _parent;
+}
+
+void				setParent(Node parent)
+{
+	_parent = parent;
 }

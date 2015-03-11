@@ -86,7 +86,6 @@ int main ()
 
 	Map			map(createMap(dim), dim);
 	Map			ref(createRefMap(dim), dim);
-	std::cout << map << std::endl;
-	std::cout << std::endl << ref << std::endl;
+	
 	return (0);
 }

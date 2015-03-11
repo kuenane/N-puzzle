@@ -76,6 +76,5 @@ unsigned int					Map::distance(Map const &map2)
 		yd = (i / _dim) - (j / _dim);
 		distance += std::sqrt((xd * xd) + (yd * yd));
 	}
-
-	return (0);
+	return (distance);
 }
