@@ -12,7 +12,6 @@
 
 NAME = n_puzzle
 
-
 DIRSRC = ./srcs/
 DIROBJ = ./obj/
 DIROBJCLASS = ./obj/
