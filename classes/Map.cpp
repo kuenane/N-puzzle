@@ -17,9 +17,11 @@ Map::Map(Map const &copy)
 
 Map::Map(Map const &copy, e_swap dir)
 {
+
+	bool	(Map::*moveArray[])(void) = {&Map::moveLeft, &Map::moveRight, &Map::moveUp, &Map::moveDown};
 	*this = copy;
 	(void)dir;
-	// Array of function pointers
+	(this->*moveArray[static_cast<int>(dir)])();
 }
 
 Map					&Map::operator=(Map const &rhs)
@@ -106,7 +108,7 @@ double							Map::manhattanDistance(Map const &map2)
 	return (distance);
 }
 
-void							Map::moveLeft(void)
+bool							Map::moveLeft(void)
 {
 	int i = 0;
 	while (_map.at(i) != 0)
@@ -116,10 +118,12 @@ void							Map::moveLeft(void)
 	{
 		_map[i] = _map[i - 1];
 		_map[i - 1] = 0;
+		return (true);
 	}
+	return (false);
 }
 
-void							Map::moveRight(void)
+bool							Map::moveRight(void)
 {
 	int i = 0;
 	while (_map.at(i) != 0)
@@ -129,10 +133,12 @@ void							Map::moveRight(void)
 	{
 		_map[i] = _map[i + 1];
 		_map[i + 1] = 0;
+		return (true);
 	}
+	return (false);
 }
 
-void							Map::moveUp(void)
+bool							Map::moveUp(void)
 {
 	int i = 0;
 	while (_map.at(i) != 0)
@@ -142,10 +148,12 @@ void							Map::moveUp(void)
 	{
 		_map[i] = _map[i - _dim];
 		_map[i - _dim] = 0;
+		return (true);
 	}
+	return (false);
 }
 
-void							Map::moveDown(void)
+bool							Map::moveDown(void)
 {
 	int i = 0;
 	while (_map.at(i) != 0)
@@ -155,6 +163,8 @@ void							Map::moveDown(void)
 	{
 		_map[i] = _map[i + _dim];
 		_map[i + _dim] = 0;
+		return (true);
 	}
+	return (false);
 }
 

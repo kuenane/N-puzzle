@@ -8,8 +8,8 @@
 enum e_swap
 {
 	LEFT = 0,
-	UP,
 	RIGHT,
+	UP,
 	DOWN
 };
 
@@ -36,10 +36,10 @@ public:
 	std::vector<unsigned int>		getMap(void) const;
 	void							setMap(std::vector<unsigned int> map);
 
-	void							moveLeft(void);
-	void							moveRight(void);
-	void							moveUp(void);
-	void							moveDown(void);
+	bool							moveLeft(void);
+	bool							moveRight(void);
+	bool							moveUp(void);
+	bool							moveDown(void);
 
 };
 
