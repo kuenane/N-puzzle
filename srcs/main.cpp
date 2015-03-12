@@ -86,6 +86,18 @@ int main ()
 
 	Map			map(createMap(dim), dim);
 	Map			ref(createRefMap(dim), dim);
-	
+	Map			map2(map);
+
+	std::cout << map << std::endl << std::endl;
+	std::cout << ref << std::endl << std::endl;
+	std::cout << map2 << std::endl << std::endl;
+	map2.moveDown();
+	std::cout << map2 << std::endl << std::endl;
+	std::cout << map << std::endl << std::endl;
+	std::cout << map.euclideanDistance(ref) << std::endl;
+	std::cout << map.manhattanDistance(ref) << std::endl;
+	std::cout << map2.euclideanDistance(ref) << std::endl;
+	std::cout << map2.manhattanDistance(ref) << std::endl;
+
 	return (0);
 }

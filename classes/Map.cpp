@@ -15,9 +15,17 @@ Map::Map(Map const &copy)
 	*this = copy;
 }
 
+Map::Map(Map const &copy, e_swap dir)
+{
+	*this = copy;
+	(void)dir;
+	// Array of function pointers
+}
+
 Map					&Map::operator=(Map const &rhs)
 {
-	static_cast<void>(rhs);
+	_map = rhs.getMap();
+	_dim = rhs.getDim();
 	return (*this);
 }
 
@@ -60,7 +68,7 @@ std::ostream					&operator<<(std::ostream &os, Map const &obj)
 	return (os);
 }
 
-unsigned int					Map::distance(Map const &map2)
+double							Map::euclideanDistance(Map const &map2)
 {
 	unsigned int				j;
 	unsigned int				xd;
@@ -78,3 +86,75 @@ unsigned int					Map::distance(Map const &map2)
 	}
 	return (distance);
 }
+
+double							Map::manhattanDistance(Map const &map2)
+{
+	unsigned int				j;
+	unsigned int				xd;
+	unsigned int				yd;
+	double 						distance = 0;
+
+	for (unsigned int i = 0; i < (_dim * _dim); i++)
+	{
+		j = 0;
+		while (map2.getMap().at(j) != _map.at(i))
+			j++;
+		xd = abs((i % _dim) - (j % _dim));
+		yd = abs((i / _dim) - (j / _dim));
+		distance += (xd + yd);
+	}
+	return (distance);
+}
+
+void							Map::moveLeft(void)
+{
+	int i = 0;
+	while (_map.at(i) != 0)
+		i++;
+
+	if (i % _dim > 0)
+	{
+		_map[i] = _map[i - 1];
+		_map[i - 1] = 0;
+	}
+}
+
+void							Map::moveRight(void)
+{
+	int i = 0;
+	while (_map.at(i) != 0)
+		i++;
+
+	if (i % _dim < (_dim - 1))
+	{
+		_map[i] = _map[i + 1];
+		_map[i + 1] = 0;
+	}
+}
+
+void							Map::moveUp(void)
+{
+	int i = 0;
+	while (_map.at(i) != 0)
+		i++;
+
+	if (i / _dim > 0)
+	{
+		_map[i] = _map[i - _dim];
+		_map[i - _dim] = 0;
+	}
+}
+
+void							Map::moveDown(void)
+{
+	int i = 0;
+	while (_map.at(i) != 0)
+		i++;
+
+	if (i / _dim < (_dim - 1))
+	{
+		_map[i] = _map[i + _dim];
+		_map[i + _dim] = 0;
+	}
+}
+

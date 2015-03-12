@@ -5,6 +5,14 @@
 # include <vector>
 # include <cmath>
 
+enum e_swap
+{
+	LEFT = 0,
+	UP,
+	RIGHT,
+	DOWN
+};
+
 class Map
 {
 
@@ -18,13 +26,20 @@ public:
 									~Map(void);
 									Map(Map const &copy);
 									Map(std::vector<unsigned int>map, unsigned int dim);
+									Map(Map const &copy, e_swap dir);
 
-	unsigned int					distance(Map const &map2);
+	double							euclideanDistance(Map const &map2);
+	double							manhattanDistance(Map const &map2);
 
 	unsigned int					getDim(void) const;
 	void							setDim(unsigned int dim);
 	std::vector<unsigned int>		getMap(void) const;
 	void							setMap(std::vector<unsigned int> map);
+
+	void							moveLeft(void);
+	void							moveRight(void);
+	void							moveUp(void);
+	void							moveDown(void);
 
 };
 

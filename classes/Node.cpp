@@ -21,12 +21,12 @@ Node 				&Node::operator=(Node const &rhs)
 	return (*this);
 }
 
-Node				getParent(void) const
+Node				*Node::getParent(void) const
 {
 	return _parent;
 }
 
-void				setParent(Node parent)
+void				Node::setParent(Node *parent)
 {
 	_parent = parent;
 }
