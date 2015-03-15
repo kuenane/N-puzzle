@@ -17,12 +17,12 @@ class Map
 {
 
 private:
-									Map(void);
-	Map								&operator=(Map const &rhs);
 	std::vector<unsigned int>		_map;
 	unsigned int					_dim;
 
 public:
+									Map(void);
+	Map								&operator=(Map const &rhs);
 									~Map(void);
 									Map(Map const &copy);
 									Map(std::vector<unsigned int>map, unsigned int dim);

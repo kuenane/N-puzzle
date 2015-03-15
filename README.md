@@ -12,3 +12,11 @@ An IA that resolves N-puzzles with an A* algorithm.
 - nb of moves from initial to final state according to the search
 - ordered sequence of states that make up the solution, according to the search
 - if the puzzle is unsolvable, inform user and quit
+
+
+
+
+
+Optimization :
+- pas faire de racine carré dans l'euclidien
+- gardé la position du zero pour pas la rechercher a chaque fois
