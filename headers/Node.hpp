@@ -8,9 +8,8 @@ class Node
 
 private:
 	Map					_map;
-	Node				*_parent;
 	double				_quality;
-
+	Node				*_parent;
 
 public:
 						Node(void);
@@ -26,14 +25,13 @@ public:
 	double				getQuality(void) const;
 	void				setQuality(double quality);
 
+ 	bool operator<(const Node& st) const
+	{
+		// std::cout << "q1 : " << _quality << std::endl;
+		// std::cout << "q2 : " << st.getQuality() << std::endl;
+ 		return _quality < st.getQuality();
+	}
 };
 
-struct less_than_key
-{
-    inline bool operator() (const Node& struct1, const Node& struct2)
-    {
-        return (struct1.getQuality() < struct2.getQuality());
-    }
-};
 
 #endif

@@ -19,6 +19,7 @@ Node 				&Node::operator=(Node const &rhs)
 {
 	_parent = rhs.getParent();
 	_map = rhs.getMap();
+	_quality = rhs.getQuality();
 	return (*this);
 }
 

@@ -84,7 +84,7 @@ bool						presentInVec(std::vector<Node> v, Map map)
 	for(std::vector<Node>::iterator it=v.begin(); it!=v.end(); ++it)
 	{
 		Node& el = *it;
-		if (el.getMap().manhattanDistance(map) == 0)
+		if (el.getMap().euclideanDistance(map) == 0)
 			return (true);
 	}
 	return (false);
@@ -101,8 +101,8 @@ int main ()
 	std::getline(std::cin, line);
 	dim = atoi(line.c_str());
 
-	Map			map(createMap(dim), dim);
-	Map			ref(createRefMap(dim), dim);
+	Map			ref(createMap(dim), dim);
+	Map			map(createRefMap(dim), dim);
 
 	Node		startNode = Node(map);
 	Node		currentNode = Node(startNode);
@@ -111,25 +111,34 @@ int main ()
 	std::vector<Node> openList;
 	std::vector<Node> closedList;
 
-	std::cout << "Initial map :" << std::endl <<  map << std::endl << std::endl;
-	while (ref.manhattanDistance(currentNode.getMap()) != 0)
+	double		min = ref.euclideanDistance(currentNode.getMap());
+	double		man;
+
+	std::cout << "Initial map :" << std::endl <<  ref << std::endl << std::endl;
+	while (ref.euclideanDistance(currentNode.getMap()) != 0)
 	{
+		man = ref.euclideanDistance(currentNode.getMap());
+		if (man < min)
+		{
+			min = man;
+			std::cout << currentNode.getMap() << std::endl;
+			std::cout << std::to_string(man) << std::endl << std::endl;
+		}
 		for (char i = 0; i < 4; i++)
 		{
 			node = Node(Map(currentNode.getMap(), static_cast<e_swap>(i)));
-			if ( node.getMap().manhattanDistance(currentNode.getMap()) == 0)
+			if ( node.getMap().euclideanDistance(currentNode.getMap()) == 0)
 				continue;
 
-			if (!presentInVec(closedList, currentNode.getMap()))
+			if (presentInVec(closedList, node.getMap()) == false)
 			{
-				std::cout << "Here " << std::to_string(i) << std::endl;
-				if (presentInVec(openList, currentNode.getMap()))
+				if (presentInVec(openList, node.getMap()))
 					node.setParent(&currentNode);
 			
 				else
 				{
 					node.setParent(&currentNode);
-                	node.setQuality(ref.manhattanDistance(node.getMap()) );
+                	node.setQuality(ref.euclideanDistance(node.getMap()) );
 					openList.push_back(node);
 	            }
 			}
@@ -142,17 +151,23 @@ int main ()
 		}
 		else
 		{
-			std::sort(openList.begin(), openList.end(), less_than_key());
+			std::sort(openList.begin(), openList.end());
 			node = openList.front();
 			openList.erase(openList.begin());
 			closedList.push_back(node);
 			currentNode = node;
-			std::cout << currentNode.getMap() << std::endl << std::endl;
 		}
 
 	}
 
-	// std::cout << closedList << std::endl;
+	std::cout << "Resolu !" << std::endl;
 
+	// while (currentNode.getMap().euclideanDistance(map) != 0)
+	// {
+	// 	std::cout << currentNode.getMap() << std::endl;
+	// 	std::cout << std::to_string(currentNode.getMap().euclideanDistance(map)) << std::endl << std::endl;
+
+	// 	currentNode = currentNode.getParent();
+	// }
 	return (0);
 }
