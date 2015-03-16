@@ -58,3 +58,28 @@ void				Node::setQuality(double quality)
 {
 	_quality = quality;
 }
+
+void				Node::calcQuality(void)
+{
+	_quality = _distanceFrom + _distanceTo;
+}
+
+double				Node::getDistanceFrom(void) const
+{
+	return _distanceFrom;
+}
+
+void				Node::setDistanceFrom(double distance)
+{
+	_distanceFrom = distance;
+}
+
+double				Node::getDistanceTo(void) const
+{
+	return _distanceTo;
+}
+
+void				Node::setDistanceTo(double distance)
+{
+	_distanceTo = distance;
+}

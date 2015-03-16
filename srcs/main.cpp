@@ -101,11 +101,12 @@ int main ()
 	std::getline(std::cin, line);
 	dim = atoi(line.c_str());
 
-	Map			ref(createMap(dim), dim);
-	Map			map(createRefMap(dim), dim);
+	Map			map(createMap(dim), dim);
+	Map			ref(createRefMap(dim), dim);
 
 	Node		startNode = Node(map);
 	Node		currentNode = Node(startNode);
+	currentNode.setDistanceFrom(0);
 	Node		node;
 
 	std::vector<Node> openList;
@@ -138,7 +139,9 @@ int main ()
 				else
 				{
 					node.setParent(&currentNode);
-                	node.setQuality(ref.euclideanDistance(node.getMap()) );
+					node.setDistanceTo(ref.euclideanDistance(node.getMap()));
+					node.setDistanceFrom(currentNode.getDistanceFrom());
+					node.calcQuality();
 					openList.push_back(node);
 	            }
 			}

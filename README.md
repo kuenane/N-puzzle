@@ -18,5 +18,6 @@ An IA that resolves N-puzzles with an A* algorithm.
 
 
 Optimization :
-- pas faire de racine carré dans l'euclidien
+- pas faire de racine carré dans l'euclidien	# FAIT
 - gardé la position du zero pour pas la rechercher a chaque fois
+- modifié la distanceTo seulement avec les deux pieces qui changent et ne pas tout recalculer

@@ -8,8 +8,10 @@ class Node
 
 private:
 	Map					_map;
-	double				_quality;
 	Node				*_parent;
+	double				_quality;
+	double				_distanceFrom;
+	double				_distanceTo;
 
 public:
 						Node(void);
@@ -24,11 +26,14 @@ public:
 	void				setMap(Map map);
 	double				getQuality(void) const;
 	void				setQuality(double quality);
+	void				calcQuality(void);
+	double				getDistanceFrom(void) const;
+	void				setDistanceFrom(double distance);
+	double				getDistanceTo(void) const;
+	void				setDistanceTo(double distance);
 
  	bool operator<(const Node& st) const
 	{
-		// std::cout << "q1 : " << _quality << std::endl;
-		// std::cout << "q2 : " << st.getQuality() << std::endl;
  		return _quality < st.getQuality();
 	}
 };
