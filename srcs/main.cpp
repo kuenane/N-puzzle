@@ -87,7 +87,7 @@ bool						presentInVec(std::vector<Node> v, Map map)
 	for(std::vector<Node>::iterator it=v.begin(); it!=v.end(); ++it)
 	{
 		Node& el = *it;
-		if (el.getMap().euclideanDistance(map) == 0)
+		if (el.getMap().getHash() == map.getHash())
 			return (true);
 	}
 	return (false);
@@ -154,7 +154,6 @@ int main ()
 			closedList.push_back(node);
 			currentNode = node;
 		}
-
 	}
 
 	std::cout << "Resolu !" << std::endl;

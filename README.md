@@ -26,3 +26,5 @@ Optimization :
 	-> déja migré : {main::createMap, main::createRefMap, Map::operator<< (With Patch)}
 	-> patch : reverseMap function
 
+	-> inVect  NE PAS FAIRE DE DISTANCE ABRUTI !!!!!!!!!!!!!!!!!!
+	-> map en hash

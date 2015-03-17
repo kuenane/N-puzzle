@@ -1,4 +1,5 @@
 #include <Map.hpp>
+#include <boost/functional/hash.hpp>
 
 Map::Map(void)
 {
@@ -23,6 +24,7 @@ Map::Map(Map const &copy, e_swap dir)
 	*this = copy;
 	(void)dir;
 	_outOfMap = (this->*moveArray[static_cast<int>(dir)])();
+	createHash();
 }
 
 Map					&Map::operator=(Map const &rhs)
@@ -30,6 +32,7 @@ Map					&Map::operator=(Map const &rhs)
 	_map = rhs.getMap();
 	_dim = rhs.getDim();
 	_outOfMap = rhs.getOutOfMap();
+	_hash = rhs.getHash();
 	return (*this);
 }
 
@@ -38,6 +41,7 @@ Map::Map(std::vector<unsigned int>map, unsigned int dim)
 	setMap(map);
 	setDim(dim);
 	_outOfMap = true;
+	createHash();
 }
 
 unsigned int					Map::getDim(void) const
@@ -58,6 +62,7 @@ std::vector<unsigned int>		Map::getMap(void) const
 void							Map::setMap(std::vector<unsigned int>map)
 {
 	_map = map;
+	createHash();
 }
 
 bool							Map::getOutOfMap(void) const
@@ -189,4 +194,14 @@ void							Map::reverseMap(void)
 		newMap[_map[i]] = i;
 
 	_map = newMap;
+}
+
+void							Map::createHash(void)
+{
+	_hash = boost::hash_range(_map.begin(), _map.end());
+}
+
+std::size_t						Map::getHash(void) const
+{
+	return _hash;
 }

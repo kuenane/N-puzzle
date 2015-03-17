@@ -20,6 +20,7 @@ private:
 	std::vector<unsigned int>		_map;
 	unsigned int					_dim;
 	bool							_outOfMap;
+	std::size_t						_hash;
 
 public:
 									Map(void);
@@ -44,6 +45,8 @@ public:
 	bool							moveDown(void);
 
 	void							reverseMap(void);
+	void							createHash(void);
+	std::size_t						getHash(void) const;
 };
 
 std::ostream					&operator<<(std::ostream &os, Map const &obj);

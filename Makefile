@@ -35,6 +35,8 @@ HEADERS = ./headers/
 INTERFACES = ./interfaces/
 INCLUDES = ./includes/
 
+BREWINC = /nfs/zfs-student-3/users/2013_paris/vlehuger/.brew/Cellar/boost/1.57.0/include/
+
 CFLAGS = -Wall -Werror -Wextra
 CLANG = clang++
 
@@ -47,12 +49,12 @@ $(NAME):  $(DIROBJCLASSES) $(DIROBJS)
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	@printf 'Compiling %s: [\033[32mDONE\033[0m]\n' '$^'
 	@mkdir -p obj
-	@$(CLANG) $(CFLAGS) -c $^ -I $(HEADERS) -I $(INTERFACES) -I $(INCLUDES) -o $@
+	@$(CLANG) $(CFLAGS) -c $^ -I $(HEADERS) -I $(INTERFACES) -I $(INCLUDES) -I $(BREWINC) -o $@
 
 $(DIROBJCLASS)%.o: $(DIRCLASS)%.cpp
 	@printf 'Compiling %s: [\033[32mDONE\033[0m]\n' '$^'
 	@mkdir -p obj
-	@$(CLANG) $(CFLAGS) -c $^ -I $(HEADERS) -I $(INTERFACES) -I $(INCLUDES) -o $@
+	@$(CLANG) $(CFLAGS) -c $^ -I $(HEADERS) -I $(INTERFACES) -I $(INCLUDES) -I $(BREWINC) -o $@
 
 clean:
 	@rm -rf $(DIROBJ) $(DIROBJCLASSES)
