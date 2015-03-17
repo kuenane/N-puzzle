@@ -32,7 +32,7 @@ std::vector<unsigned int>				createMap(int size)
 {
 	std::string						line;
 
-	std::vector<unsigned int>		array;
+	std::vector<unsigned int>		array((size * size), 0);
 	std::vector<unsigned int>		tmp;
 
 	for (int i = 0; i < size; i++)
@@ -40,7 +40,10 @@ std::vector<unsigned int>				createMap(int size)
 		std::getline (std::cin, line);
 		tmp = split_line(line, " ", size);
 		for (int j = 0; j < size; j++)
-			array.push_back(tmp.at(j));
+		{
+			// std::cout << "array[" << std::to_string(tmp[j]) << "] = " << std::to_string(size * i + j) << std::endl;
+			array[tmp[j]] = size * i + j;
+		}
 	}
 	return (array);
 }
@@ -103,6 +106,7 @@ int main ()
 
 	Map			map(createMap(dim), dim);
 	Map			ref(createRefMap(dim), dim);
+	ref.reverseMap();
 
 	Node		startNode = Node(map);
 	Node		currentNode = Node(startNode);

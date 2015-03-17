@@ -41,6 +41,7 @@ public:
 	bool							moveUp(void);
 	bool							moveDown(void);
 
+	void							reverseMap(void);
 };
 
 std::ostream					&operator<<(std::ostream &os, Map const &obj);

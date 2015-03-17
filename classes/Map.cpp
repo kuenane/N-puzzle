@@ -59,12 +59,15 @@ void							Map::setMap(std::vector<unsigned int>map)
 
 std::ostream					&operator<<(std::ostream &os, Map const &obj)
 {
-	for (unsigned int i = 0; i < (obj.getDim() * obj.getDim()); i++)
+	Map map_tmp = Map(obj);
+
+	map_tmp.reverseMap();
+	for (unsigned int i = 0; i < (map_tmp.getDim() * map_tmp.getDim()); i++)
 	{
-		if (i > 0 && (i % obj.getDim()) == 0)
+		if (i > 0 && (i % map_tmp.getDim()) == 0)
 			os << std::endl;
-		os << obj.getMap().at(i);
-		if (i < ((obj.getDim() * obj.getDim()) - 1))
+		os << map_tmp.getMap().at(i);
+		if (i < ((map_tmp.getDim() * map_tmp.getDim()) - 1))
 			os << " ";
 	}
 	return (os);
@@ -72,18 +75,14 @@ std::ostream					&operator<<(std::ostream &os, Map const &obj)
 
 double							Map::euclideanDistance(Map const &map2)
 {
-	unsigned int				j;
 	unsigned int				xd;
 	unsigned int				yd;
 	double 						distance = 0;
 
 	for (unsigned int i = 0; i < (_dim * _dim); i++)
 	{
-		j = 0;
-		while (map2.getMap().at(j) != _map.at(i))
-			j++;
-		xd = (i % _dim) - (j % _dim);
-		yd = (i / _dim) - (j / _dim);
+		xd = (_map[i] % _dim) - (map2.getMap()[i] % _dim);
+		yd = (_map[i] / _dim) - (map2.getMap()[i] / _dim);
 		distance += std::sqrt((xd * xd) + (yd * yd));
 	}
 	return (distance);
@@ -110,14 +109,16 @@ double							Map::manhattanDistance(Map const &map2)
 
 bool							Map::moveLeft(void)
 {
-	int i = 0;
-	while (_map.at(i) != 0)
-		i++;
+	unsigned int i = _map[0];
 
 	if (i % _dim > 0)
 	{
-		_map[i] = _map[i - 1];
-		_map[i - 1] = 0;
+		int k = 0;
+		while (_map[k] != i - 1)
+			k++;
+		_map[0] = _map[0] + _map[k];
+		_map[k] = _map[0] - _map[k];
+		_map[0] = _map[0] - _map[k];
 		return (true);
 	}
 	return (false);
@@ -125,14 +126,16 @@ bool							Map::moveLeft(void)
 
 bool							Map::moveRight(void)
 {
-	int i = 0;
-	while (_map.at(i) != 0)
-		i++;
+	unsigned int i = _map[0];
 
 	if (i % _dim < (_dim - 1))
 	{
-		_map[i] = _map[i + 1];
-		_map[i + 1] = 0;
+		int k = 0;
+		while (_map[k] != i + 1)
+			k++;
+		_map[0] = _map[0] + _map[k];
+		_map[k] = _map[0] - _map[k];
+		_map[0] = _map[0] - _map[k];
 		return (true);
 	}
 	return (false);
@@ -140,14 +143,16 @@ bool							Map::moveRight(void)
 
 bool							Map::moveUp(void)
 {
-	int i = 0;
-	while (_map.at(i) != 0)
-		i++;
+	unsigned int i = _map[0];
 
 	if (i / _dim > 0)
 	{
-		_map[i] = _map[i - _dim];
-		_map[i - _dim] = 0;
+		int k = 0;
+		while (_map[k] != i - _dim)
+			k++;
+		_map[0] = _map[0] + _map[k];
+		_map[k] = _map[0] - _map[k];
+		_map[0] = _map[0] - _map[k];
 		return (true);
 	}
 	return (false);
@@ -155,16 +160,27 @@ bool							Map::moveUp(void)
 
 bool							Map::moveDown(void)
 {
-	int i = 0;
-	while (_map.at(i) != 0)
-		i++;
+	unsigned int i = _map[0];
 
 	if (i / _dim < (_dim - 1))
 	{
-		_map[i] = _map[i + _dim];
-		_map[i + _dim] = 0;
+		int k = 0;
+		while (_map[k] != i + _dim)
+			k++;
+		_map[0] = _map[0] + _map[k];
+		_map[k] = _map[0] - _map[k];
+		_map[0] = _map[0] - _map[k];
 		return (true);
 	}
 	return (false);
 }
 
+void							Map::reverseMap(void)
+{
+	std::vector<unsigned int>	newMap((_dim * _dim), 0);
+
+	for(unsigned int i = 0; i < _map.size(); i++)
+		newMap[_map[i]] = i;
+
+	_map = newMap;
+}
