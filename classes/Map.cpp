@@ -3,6 +3,7 @@
 Map::Map(void)
 {
 	return ;
+	_outOfMap = true;
 }
 
 Map::~Map(void)
@@ -21,13 +22,14 @@ Map::Map(Map const &copy, e_swap dir)
 	bool	(Map::*moveArray[])(void) = {&Map::moveLeft, &Map::moveRight, &Map::moveUp, &Map::moveDown};
 	*this = copy;
 	(void)dir;
-	(this->*moveArray[static_cast<int>(dir)])();
+	_outOfMap = (this->*moveArray[static_cast<int>(dir)])();
 }
 
 Map					&Map::operator=(Map const &rhs)
 {
 	_map = rhs.getMap();
 	_dim = rhs.getDim();
+	_outOfMap = rhs.getOutOfMap();
 	return (*this);
 }
 
@@ -35,6 +37,7 @@ Map::Map(std::vector<unsigned int>map, unsigned int dim)
 {
 	setMap(map);
 	setDim(dim);
+	_outOfMap = true;
 }
 
 unsigned int					Map::getDim(void) const
@@ -55,6 +58,11 @@ std::vector<unsigned int>		Map::getMap(void) const
 void							Map::setMap(std::vector<unsigned int>map)
 {
 	_map = map;
+}
+
+bool							Map::getOutOfMap(void) const
+{
+	return _outOfMap;
 }
 
 std::ostream					&operator<<(std::ostream &os, Map const &obj)
@@ -78,8 +86,9 @@ double							Map::euclideanDistance(Map const &map2)
 	unsigned int				xd;
 	unsigned int				yd;
 	double 						distance = 0;
+	unsigned int				cases = _dim * _dim;
 
-	for (unsigned int i = 0; i < (_dim * _dim); i++)
+	for (unsigned int i = 0; i < cases; i++)
 	{
 		xd = (_map[i] % _dim) - (map2.getMap()[i] % _dim);
 		yd = (_map[i] / _dim) - (map2.getMap()[i] / _dim);
@@ -90,18 +99,15 @@ double							Map::euclideanDistance(Map const &map2)
 
 double							Map::manhattanDistance(Map const &map2)
 {
-	unsigned int				j;
 	unsigned int				xd;
 	unsigned int				yd;
 	double 						distance = 0;
+	unsigned int				cases = _dim * _dim;
 
-	for (unsigned int i = 0; i < (_dim * _dim); i++)
+	for (unsigned int i = 0; i < cases; i++)
 	{
-		j = 0;
-		while (map2.getMap().at(j) != _map.at(i))
-			j++;
-		xd = abs((i % _dim) - (j % _dim));
-		yd = abs((i / _dim) - (j / _dim));
+		xd = abs((_map[i] % _dim) - (map2.getMap()[i] % _dim));
+		yd = abs((_map[i] / _dim) - (map2.getMap()[i] / _dim));
 		distance += (xd + yd);
 	}
 	return (distance);
@@ -113,7 +119,7 @@ bool							Map::moveLeft(void)
 
 	if (i % _dim > 0)
 	{
-		int k = 0;
+		int k = 1;
 		while (_map[k] != i - 1)
 			k++;
 		_map[0] = _map[0] + _map[k];
@@ -130,7 +136,7 @@ bool							Map::moveRight(void)
 
 	if (i % _dim < (_dim - 1))
 	{
-		int k = 0;
+		int k = 1;
 		while (_map[k] != i + 1)
 			k++;
 		_map[0] = _map[0] + _map[k];
@@ -147,7 +153,7 @@ bool							Map::moveUp(void)
 
 	if (i / _dim > 0)
 	{
-		int k = 0;
+		int k = 1;
 		while (_map[k] != i - _dim)
 			k++;
 		_map[0] = _map[0] + _map[k];
@@ -164,7 +170,7 @@ bool							Map::moveDown(void)
 
 	if (i / _dim < (_dim - 1))
 	{
-		int k = 0;
+		int k = 1;
 		while (_map[k] != i + _dim)
 			k++;
 		_map[0] = _map[0] + _map[k];

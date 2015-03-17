@@ -83,3 +83,19 @@ void				Node::setDistanceTo(double distance)
 {
 	_distanceTo = distance;
 }
+
+void				Node::updateEuclideanDistance(Map &ref, Node &old, e_swap i)
+{
+	if (i == LEFT)
+	{
+	}
+	else if (i == RIGHT)
+	{
+	}
+	else if (i == UP)
+	{
+	}
+	else
+	{
+	}
+}

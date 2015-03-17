@@ -32,6 +32,8 @@ public:
 	double				getDistanceTo(void) const;
 	void				setDistanceTo(double distance);
 
+	void				updateEuclideanDistance(Map &ref, Node &old, e_swap i);
+
  	bool operator<(const Node& st) const
 	{
  		return _quality < st.getQuality();

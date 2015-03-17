@@ -116,35 +116,25 @@ int main ()
 	std::vector<Node> openList;
 	std::vector<Node> closedList;
 
-	double		min = ref.euclideanDistance(currentNode.getMap());
-	double		man;
-
-	std::cout << "Initial map :" << std::endl <<  ref << std::endl << std::endl;
+	std::cout << "Initial map :" << std::endl << map << std::endl << std::endl;
 	while (ref.euclideanDistance(currentNode.getMap()) != 0)
 	{
-		man = ref.euclideanDistance(currentNode.getMap());
-		if (man < min)
-		{
-			min = man;
-			std::cout << currentNode.getMap() << std::endl;
-			std::cout << std::to_string(man) << std::endl << std::endl;
-		}
 		for (char i = 0; i < 4; i++)
 		{
 			node = Node(Map(currentNode.getMap(), static_cast<e_swap>(i)));
-			if ( node.getMap().euclideanDistance(currentNode.getMap()) == 0)
+			if (node.getMap().getOutOfMap() == false)
 				continue;
 
 			if (presentInVec(closedList, node.getMap()) == false)
 			{
 				if (presentInVec(openList, node.getMap()))
 					node.setParent(&currentNode);
-			
 				else
 				{
 					node.setParent(&currentNode);
 					node.setDistanceTo(ref.euclideanDistance(node.getMap()));
-					node.setDistanceFrom(currentNode.getDistanceFrom());
+					// node.setDistanceTo(ref.manhattanDistance(node.getMap()));
+					node.setDistanceFrom(currentNode.getDistanceFrom() + 1);
 					node.calcQuality();
 					openList.push_back(node);
 	            }

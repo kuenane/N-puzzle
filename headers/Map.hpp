@@ -19,6 +19,7 @@ class Map
 private:
 	std::vector<unsigned int>		_map;
 	unsigned int					_dim;
+	bool							_outOfMap;
 
 public:
 									Map(void);
@@ -35,6 +36,7 @@ public:
 	void							setDim(unsigned int dim);
 	std::vector<unsigned int>		getMap(void) const;
 	void							setMap(std::vector<unsigned int> map);
+	bool							getOutOfMap(void) const;
 
 	bool							moveLeft(void);
 	bool							moveRight(void);
