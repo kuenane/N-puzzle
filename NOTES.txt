@@ -1,0 +1,14 @@
+# NOTES
+
+x is a node
+f(x) is the cost
+f(x) = g(x) + h(x)
+- g(x) cost from start to x
+- h(h) cost from x to endnode. ("admissible heuristic estimate" of the distance)
+
+admissible means : not overestimate (typical straight line)
+closed list : node already evaluated
+
+
+# TODO
+ Add parent to 

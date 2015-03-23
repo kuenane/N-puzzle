@@ -1,86 +1,82 @@
+// ************************************************************************** //
+//                                                                            //
+//                                                        :::      ::::::::   //
+//   Node.cpp                                           :+:      :+:    :+:   //
+//                                                    +:+ +:+         +:+     //
+//   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
+//                                                +#+#+#+#+#+   +#+           //
+//   Created: 2015/03/23 14:15:22 by dcojan            #+#    #+#             //
+//   Updated: 2015/03/23 14:15:25 by dcojan           ###   ########.fr       //
+//                                                                            //
+// ************************************************************************** //
+
 #include <Node.hpp>
 
-Node::Node(void)
-{
+Node::Node(void){
 	return ;
 }
 
-Node::~Node(void)
-{
+Node::~Node(void){
 	return ;
 }
 
-Node::Node(Node const &copy)
-{
+Node::Node(Node const &copy){
 	*this = copy;
 }
 
-Node 				&Node::operator=(Node const &rhs)
-{
+Node 				&Node::operator=(Node const &rhs){
 	_parent = rhs.getParent();
 	_map = rhs.getMap();
 	_quality = rhs.getQuality();
 	return (*this);
 }
 
-Node::Node(Map map)
-{
+Node::Node(Map map){
 	_map = map;
 }
 
 
-Node				*Node::getParent(void) const
-{
+Node				*Node::getParent(void) const{
 	return _parent;
 }
 
-void				Node::setParent(Node *parent)
-{
+void				Node::setParent(Node *parent){
 	_parent = parent;
 }
 
-Map					Node::getMap(void) const
-{
+Map					Node::getMap(void) const{
 	return _map;
 }
 
-void				Node::setMap(Map map)
-{
+void				Node::setMap(Map map){
 	_map = map;
 }
 
-double				Node::getQuality(void) const
-{
+double				Node::getQuality(void) const{
 	return _quality;
 }
 
-void				Node::setQuality(double quality)
-{
+void				Node::setQuality(double quality){
 	_quality = quality;
 }
 
-void				Node::calcQuality(void)
-{
+void				Node::calcQuality(void){
 	_quality = _distanceFrom + _distanceTo;
 }
 
-double				Node::getDistanceFrom(void) const
-{
+double				Node::getDistanceFrom(void) const{
 	return _distanceFrom;
 }
 
-void				Node::setDistanceFrom(double distance)
-{
+void				Node::setDistanceFrom(double distance){
 	_distanceFrom = distance;
 }
 
-double				Node::getDistanceTo(void) const
-{
+double				Node::getDistanceTo(void) const{
 	return _distanceTo;
 }
 
-void				Node::setDistanceTo(double distance)
-{
+void				Node::setDistanceTo(double distance){
 	_distanceTo = distance;
 }
 

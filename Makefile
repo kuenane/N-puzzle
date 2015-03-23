@@ -6,7 +6,7 @@
 #    By: vlehuger <vlehuger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/04 09:28:52 by vlehuger          #+#    #+#              #
-#    Updated: 2015/03/08 22:14:28 by vlehuger         ###   ########.fr        #
+#    Updated: 2015/03/23 12:41:30 by dcojan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ DIROBJCLASS = ./obj/
 DIRCLASS = ./classes/
 
 SRC = utils.cpp\
-	  main.cpp
+	  main.cpp\
+	  n-puzzle.cpp
 
 CLASSES = Map.cpp\
-		  Node.cpp
+		  Node.cpp\
+		  MapCreator.class.cpp
 
 OBJ = $(SRC:.cpp=.o)
 OBJCLASSES = $(CLASSES:.cpp=.o)
@@ -35,7 +37,7 @@ HEADERS = ./headers/
 INTERFACES = ./interfaces/
 INCLUDES = ./includes/
 
-BREWINC = /nfs/zfs-student-3/users/2013_paris/vlehuger/.brew/Cellar/boost/1.57.0/include/
+BREWINC = $(HOME)/.brew/Cellar/boost/1.57.0/include/
 
 CFLAGS = -Wall -Werror -Wextra
 CLANG = clang++

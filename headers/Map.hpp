@@ -35,7 +35,7 @@ public:
 
 	unsigned int					getDim(void) const;
 	void							setDim(unsigned int dim);
-	std::vector<unsigned int>		getMap(void) const;
+	std::vector<unsigned int> const	&	getMap(void) const;
 	void							setMap(std::vector<unsigned int> map);
 	bool							getOutOfMap(void) const;
 
