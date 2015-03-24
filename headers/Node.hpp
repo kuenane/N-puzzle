@@ -9,7 +9,6 @@ class Node
 private:
 	Map					_map;
 	Node				*_parent;
-	double				_quality;
 	double				_distanceFrom;
 	double				_distanceTo;
 
@@ -24,19 +23,20 @@ public:
 	void				setParent(Node *parent);
 	Map					getMap(void) const;
 	void				setMap(Map map);
-	double				getQuality(void) const;
-	void				setQuality(double quality);
-	void				calcQuality(void);
 	double				getDistanceFrom(void) const;
 	void				setDistanceFrom(double distance);
 	double				getDistanceTo(void) const;
 	void				setDistanceTo(double distance);
 
 	void				updateEuclideanDistance(Map &ref, Node &old, e_swap i);
-
- 	bool operator<(const Node& st) const
+	struct PointerCompare {
+		bool operator()(const Node* l, const Node* r) {
+			return *l < *r;
+		}
+    };
+ 	bool operator<(const Node & st) const
 	{
- 		return _quality < st.getQuality();
+ 		return _distanceTo < st.getDistanceTo();
 	}
 };
 

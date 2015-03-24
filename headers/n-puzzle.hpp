@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:07:40 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/23 12:44:19 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/24 14:19:12 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -29,4 +29,4 @@ bool				npuzzle(Map map, Map ref);
 
 // utils.cpp
 std::string			&trim(std::string &s);
-bool				presentInVec(std::vector<Node> v, Map map);
+bool				presentInVec(std::vector<Node*> v, Map map);

@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 14:15:22 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/23 14:15:25 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/24 16:11:57 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -27,14 +27,13 @@ Node::Node(Node const &copy){
 Node 				&Node::operator=(Node const &rhs){
 	_parent = rhs.getParent();
 	_map = rhs.getMap();
-	_quality = rhs.getQuality();
+	_distanceTo = rhs.getDistanceTo();
 	return (*this);
 }
 
 Node::Node(Map map){
 	_map = map;
 }
-
 
 Node				*Node::getParent(void) const{
 	return _parent;
@@ -50,18 +49,6 @@ Map					Node::getMap(void) const{
 
 void				Node::setMap(Map map){
 	_map = map;
-}
-
-double				Node::getQuality(void) const{
-	return _quality;
-}
-
-void				Node::setQuality(double quality){
-	_quality = quality;
-}
-
-void				Node::calcQuality(void){
-	_quality = _distanceFrom + _distanceTo;
 }
 
 double				Node::getDistanceFrom(void) const{

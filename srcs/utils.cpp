@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:01:14 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/23 16:24:21 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/24 14:19:35 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -42,12 +42,13 @@ std::string &trim(std::string &s)
         return ltrim(rtrim(s));
 }
 
-bool						presentInVec(std::vector<Node> v, Map map)
+bool						presentInVec(std::vector<Node*> v, Map map)
 {
-	for (std::vector<Node>::iterator it=v.begin(); it!=v.end(); ++it)
+	Node *el;
+	for (std::vector<Node*>::iterator it=v.begin(); it!=v.end(); ++it)
 	{
-		Node& el = *it;
-		if (el.getMap().getHash() == map.getHash())
+		el = *it;
+		if (el->getMap().getHash() == map.getHash())
 			return (true);
 	}
 	return (false);
