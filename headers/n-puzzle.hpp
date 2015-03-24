@@ -25,7 +25,7 @@
 #include <Node.hpp>
 
 // n-puzzle.cpp
-bool				npuzzle(Map map, Map ref);
+bool				npuzzle(Map map, Map ref, bool verbose);
 
 // utils.cpp
 std::string			&trim(std::string &s);

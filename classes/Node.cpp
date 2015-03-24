@@ -31,7 +31,9 @@ Node 				&Node::operator=(Node const &rhs){
 	return (*this);
 }
 
-Node::Node(Map map){
+Node::Node(Map map)
+{
+	_parent = NULL;
 	_map = map;
 }
 

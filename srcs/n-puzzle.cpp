@@ -12,21 +12,30 @@
 
 #include <n-puzzle.hpp>
 
-bool			npuzzle(Map map, Map ref){
+
+void			printSolution(Node *node, int &count, bool verbose)
+{
+	count += 1;
+	if (node->getParent() != NULL)
+		printSolution(node->getParent(), count, verbose);
+	if (verbose)
+		std::cout << node->getMap() << std::endl << std::endl;
+}
+
+
+bool			npuzzle(Map map, Map ref, bool verbose)
+{
 	Node					startNode = Node(map);
 	Node					*currentNode = new Node(startNode);
 	Node					*node;
 	std::vector<Node*>		openList;
 	std::vector<Node*>		closedList;
 
-	std::cout << "REF MAP " << std::endl;
-	std::cout << ref << std::endl;
 	currentNode->setDistanceFrom(0);
-	std::cout << "Initial map :" << std::endl << map << std::endl << std::endl;
+	currentNode->setDistanceTo(ref.euclideanDistance(currentNode->getMap()));
 	int k = 0;
-	while (ref.euclideanDistance(currentNode->getMap()) != 0) //while distance is not same as ref
+	while (currentNode->getDistanceTo() != 0) //while distance is not same as ref
 	{
-//		printf("Adresse : %p\n", currentNode);
 		for (char i = 0; i < 4; i++) //for each direction
 		{
 			// create new map and new node in that direction
@@ -38,7 +47,6 @@ bool			npuzzle(Map map, Map ref){
 				delete node;
  				continue;
 			}
-//			std::cout << node->getMap() << std::endl;
 			if (presentInVec(closedList, node->getMap()) == false) //if not in closed list
 			{
 				node->setParent(currentNode);
@@ -73,14 +81,11 @@ bool			npuzzle(Map map, Map ref){
 // 		if (k == 10)
 // 			break;
 	}
-	std::cout << "Nb of loops : " << k << std::endl;
+	// std::cout << "Nb of loops : " << k << std::endl;
 
-	// while (currentNode.getMap().euclideanDistance(map) != 0)
-	// {
-	// 	std::cout << currentNode.getMap() << std::endl;
-	// 	std::cout << std::to_string(currentNode.getMap().euclideanDistance(map)) << std::endl << std::endl;
-
-	// 	currentNode = currentNode.getParent();
-	// }
+	int count = -1; // -1 to count the number of movements and not array state
+	printSolution(currentNode, count, verbose);
+	std::cout << "Size of open list : " << openList.size() << std::endl;
+	std::cout << "Number of moves : " << count << std::endl;
 	return true;
 }

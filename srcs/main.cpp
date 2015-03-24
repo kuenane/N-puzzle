@@ -19,11 +19,14 @@ int main (int ac, char *av[])
 	Map								map;
 	Map								ref;
 
+	bool verbose = false;
+	if (ac == 3 && (strcmp(av[2], "-v") == 0 || strcmp(av[2], "--verbose") == 0))
+		verbose = true;
 	// do try/catch here
 	map = (ac > 1) ? mapcreator.createMapFromArg(av[1]): mapcreator.createMapFromStdin();
 	// and here
 	ref = mapcreator.createRefMap(map.getDim());
-	if (npuzzle(map, ref))
+	if (npuzzle(map, ref, verbose))
 	{
 		std::cout << "Resolu !" << std::endl;
 	}
