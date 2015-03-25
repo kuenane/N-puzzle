@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:04:27 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/23 12:35:38 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/25 12:01:01 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,54 +39,96 @@ std::vector<unsigned int>			MapCreator::split_line(std::string line, std::string
 	return ret;
 }
 
+// bool			is_map_valid(std::vector<unsigned int>	&array, unsigned int size)
+// {
+// 	if (array.size() == 0)
+// 		return false;
+// 	for (unsigned int i = 0 ; i < (size * size - 1); i++)
+// 	{
+// 		for (unsigned int j = i + 1 ; j < (size * size); j++)
+// 		{
+// 			if (array[i] == array[j])
+// 				return false;
+// 		}
+// 	}
+// 	return true;
+// }
+
 Map				MapCreator::createMapFromArg(std::string arg)
 {
-	std::string						line;
-	std::vector<unsigned int>		tmp;
-	int								size;
 	std::ifstream					ifs;
 
 	ifs.open(arg, std::ifstream::in);
-	std::getline(ifs, line);
-	std::cout << line << std::endl;
-	std::getline(ifs, line);
-	size = atoi(line.c_str());
-
-	std::vector<unsigned int>		array((size * size), 0);
-	for (int i = 0; i < size; i++)
+	if (!ifs.is_open())
 	{
-		std::getline(ifs, line);
-		tmp = split_line(line, " ", size);
-		for (int j = 0; j < size; j++)
-		{
-			// std::cout << "array[" << std::to_string(tmp[j]) << "] = " << std::to_string(size * i + j) << std::endl;
-			array[tmp[j]] = size * i + j;
-		}
+		std::cout << "Error can't open file" << std::endl;
+		exit(EXIT_FAILURE);
 	}
+	Map map = getInputMap(ifs);
 	ifs.close();
-	return Map(array, size);
+	return map;
+}
+
+bool			MapCreator::is_already_in(std::vector<unsigned int> &array, unsigned int nb)
+{
+	for (unsigned i = 0; i < array.size(); i++)
+	{
+		if (array[i] == nb)
+			return true;
+	}
+	return false;
 }
 
 Map				MapCreator::createMapFromStdin()
 {
+	Map map = getInputMap(std::cin);
+	return map;
+}
+
+unsigned int	MapCreator::getMapSize(std::istream& is)
+{
+	std::string						line;
+	int								size = 0;
+
+	while (!is.eof())
+	{
+		std::getline(is, line);
+//		std::cout << line << std::endl;
+		if (isdigit(line[0])){
+			size = atoi(line.c_str());
+			break;
+		}
+	}
+	if (size < 3)
+	{
+		std::cout << "Error invalid map1" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	return size;
+}
+
+Map				MapCreator::getInputMap(std::istream& is)
+{
 	std::string						line;
 	std::vector<unsigned int>		tmp;
-	int								size;
+	std::vector<unsigned int>		check;
 
-	std::getline(std::cin, line);
-	std::cout << line << std::endl;
-	std::getline(std::cin, line);
-	size = atoi(line.c_str());
-
+	int size = getMapSize(is);
 	std::vector<unsigned int>		array((size * size), 0);
 	for (int i = 0; i < size; i++)
 	{
-		std::getline (std::cin, line);
+		std::getline(is, line);
 		tmp = split_line(line, " ", size);
 		for (int j = 0; j < size; j++)
 		{
+			if (is_already_in(check ,tmp[j]))
+			{
+				std::cout << "Error invalid map2" << std::endl;
+				exit(EXIT_FAILURE);
+			}
 			// std::cout << "array[" << std::to_string(tmp[j]) << "] = " << std::to_string(size * i + j) << std::endl;
 			array[tmp[j]] = size * i + j;
+			check.push_back(tmp[j]);
 		}
 	}
 	return Map(array, size);
