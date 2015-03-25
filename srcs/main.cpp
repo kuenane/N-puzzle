@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/23 16:22:58 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/25 10:24:59 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -63,8 +63,8 @@ int main (int ac, char *av[])
 	MapCreator						mapcreator;
 	Map								map;
 	Map								ref;
+	bool							verbose = false;
 
-	bool verbose = false;
 	if (ac == 3 && (strcmp(av[2], "-v") == 0 || strcmp(av[2], "--verbose") == 0))
 		verbose = true;
 	// do try/catch here
