@@ -14,6 +14,7 @@
 #include <functional>
 #include <locale>
 
+#include <ctime>
 #include <cctype>
 #include <cstdlib>
 #include <iostream>
@@ -30,3 +31,6 @@ bool				npuzzle(Map map, Map ref, bool verbose);
 // utils.cpp
 std::string			&trim(std::string &s);
 bool				presentInVec(std::vector<Node*> v, Map map);
+
+// generator.cpp
+std::vector<unsigned int>			generator(unsigned int width_size)
