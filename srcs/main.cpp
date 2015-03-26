@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 10:09:51 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/26 10:41:33 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -33,27 +33,35 @@ int main (int ac, char *av[])
 					  << "  -h, --help\t\t\t\tShow this message and exit.\n"
 					  << "  -v, --verbose\t\t\t\tVerbose mode.\n"
 					  << "  -d DISTANCE, --distance DISTANCE\tDistance algorithm\n"
-					  << "  DISTANCE (default 0):\n\t\t0 for euclidean\n\t\t1 for manhattan\n"
+					  << "  DISTANCE (default 0):\n\t\t0 for euclidean\n\t\t1 for manhattan\n\t\t2 for hamming\n"
 					  << std::endl;
 			exit(EXIT_SUCCESS);
 		}
 		else if ((strcmp(av[i], "-d") == 0 || strcmp(av[i], "--distance") == 0))
 		{
-			if (++i >= ac)
+			i++;
+			if (i >= ac)
 			{
-				std::cout << "Error: expect 0 or 1 after -d or --distance."<< std::endl;
+				std::cout << "Error: expect 0 or 2 after -d or --distance."<< std::endl;
 				exit(EXIT_FAILURE);
 			}
 			if (strcmp(av[i], "0") == 0)
 				distflag = EUCLIDEAN;
-			if (strcmp(av[i], "1") == 0)
+			else if (strcmp(av[i], "1") == 0)
 				distflag = MANHATTAN;
+			else if (strcmp(av[i], "2") == 0)
+				distflag = HAMMING;
+			else {
+				std::cout << "Error: expect 0 to 2 after -d or --distance."<< std::endl;
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
 			maparg = true;
-			map = mapcreator.createMapFromArg(av[1]);
-			if (++i < ac)
+			map = mapcreator.createMapFromArg(av[i]);
+			i++;
+			if (i < ac)
 			{
 				std::cout << "Error: unexpected argument"<< std::endl;
 				exit(EXIT_FAILURE);

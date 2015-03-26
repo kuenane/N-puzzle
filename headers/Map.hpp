@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/26 09:14:04 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 09:31:29 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/26 10:40:06 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 #ifndef MAP_HPP
@@ -18,6 +18,7 @@
 
 # define EUCLIDEAN 0
 # define MANHATTAN 1
+# define HAMMING 2
 
 enum e_swap
 {
@@ -38,6 +39,7 @@ private:
 	static 	double					(Map::*f[])(Map const &map2);
 	double							euclideanDistance(Map const &map2);
 	double							manhattanDistance(Map const &map2);
+	double							hammingDistance(Map const &map2);
 
 public:
 									Map(void);

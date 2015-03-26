@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 12:47:46 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 09:29:58 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/26 10:43:38 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -119,7 +119,10 @@ double							Map::euclideanDistance(Map const &map2){
 	}
 	return (distance);
 }
-double		(Map::*Map::f[])(Map const &map2) = {&Map::euclideanDistance, &Map::manhattanDistance};
+double		(Map::*Map::f[])(Map const &map2) = {
+	&Map::euclideanDistance,
+	&Map::manhattanDistance,
+	&Map::hammingDistance};
 
 double							Map::manhattanDistance(Map const &map2){
 	unsigned int				xd;
@@ -134,6 +137,19 @@ double							Map::manhattanDistance(Map const &map2){
 		xd = abs((_map[i] % _dim) - (mapmap2[i] % _dim));
 		yd = abs((_map[i] / _dim) - (mapmap2[i] / _dim));
 		distance += (xd + yd);
+	}
+	return (distance);
+}
+
+double							Map::hammingDistance(Map const &map2){
+	double 						distance = 0;
+	unsigned int				cases = _dim * _dim;
+	std::vector<unsigned int>	mapmap2 = map2.getMap();
+
+	for (unsigned int i = 0; i < cases; i++)
+	{
+		if (_map[i] != mapmap2[i])
+			distance++;
 	}
 	return (distance);
 }
