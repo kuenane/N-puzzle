@@ -6,24 +6,13 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 12:38:40 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/24 16:11:33 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/26 09:34:31 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <n-puzzle.hpp>
 
-
-void			printSolution(Node *node, int &count, bool verbose)
-{
-	count += 1;
-	if (node->getParent() != NULL)
-		printSolution(node->getParent(), count, verbose);
-	if (verbose)
-		std::cout << node->getMap() << std::endl << std::endl;
-}
-
-
-bool			npuzzle(Map map, Map ref, bool verbose)
+bool			npuzzle(Map map, Map ref, bool verbose, int distflag)
 {
 	Node					startNode = Node(map);
 	Node					*currentNode = new Node(startNode);
@@ -32,7 +21,7 @@ bool			npuzzle(Map map, Map ref, bool verbose)
 	std::vector<Node*>		closedList;
 
 	currentNode->setDistanceFrom(0);
-	currentNode->setDistanceTo(ref.euclideanDistance(currentNode->getMap()));
+	currentNode->setDistanceTo(ref.calcDistance(currentNode->getMap(), distflag));
 	int k = 0;
 	while (currentNode->getDistanceTo() != 0) //while distance is not same as ref
 	{
@@ -52,9 +41,8 @@ bool			npuzzle(Map map, Map ref, bool verbose)
 				node->setParent(currentNode);
 				if (presentInVec(openList, node->getMap()) == false) //if NOT in open list
 				{
-					node->setDistanceTo(ref.euclideanDistance(node->getMap()));
+					node->setDistanceTo(ref.calcDistance(node->getMap(), distflag));
 //					std::cout  << "Distance : "<< node->getDistanceTo() << std::endl;
-//					node.setDistanceTo(ref.manhattanDistance(node.getMap()));
 					node->setDistanceFrom(currentNode->getDistanceFrom() + 1);
 					openList.push_back(node);
 //					std::cout << "Quality : "<< node->getQuality() << std::endl;
@@ -71,7 +59,6 @@ bool			npuzzle(Map map, Map ref, bool verbose)
 			std::sort(openList.begin(), openList.end(), Node::PointerCompare());
 			node = openList.front();
 // 			std::cout << "Choosen one !!\n : "<< node->getMap() << std::endl;
-
 			openList.erase(openList.begin());
 			closedList.push_back(node);
 			currentNode = node;

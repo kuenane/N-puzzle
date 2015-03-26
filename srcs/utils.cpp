@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:01:14 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/24 14:19:35 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/26 09:34:39 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -52,4 +52,13 @@ bool						presentInVec(std::vector<Node*> v, Map map)
 			return (true);
 	}
 	return (false);
+}
+
+void			printSolution(Node *node, int &count, bool verbose)
+{
+	count += 1;
+	if (node->getParent() != NULL)
+		printSolution(node->getParent(), count, verbose);
+	if (verbose)
+		std::cout << node->getMap() << std::endl << std::endl;
 }

@@ -6,7 +6,7 @@
 #    By: vlehuger <vlehuger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/04 09:28:52 by vlehuger          #+#    #+#              #
-#    Updated: 2015/03/23 12:41:30 by dcojan           ###   ########.fr        #
+#    Updated: 2015/03/26 09:37:35 by dcojan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ DIRCLASS = ./classes/
 
 SRC = utils.cpp\
 	  main.cpp\
-	  n-puzzle.cpp
-
+	  n-puzzle.cpp\
+	  isSolvable.cpp
 CLASSES = Map.cpp\
 		  Node.cpp\
 		  MapCreator.class.cpp
