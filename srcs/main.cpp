@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/27 12:39:09 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 15:05:09 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -20,9 +20,10 @@ int main (int ac, char *av[])
 	Map								ref;
 	bool							verbose = false;
 	int								distflag = EUCLIDEAN;
-	bool							maparg;
+	bool							maparg = false;
 	int								generatesize = 0;
 
+	std::cout << "MAIN START !" << std::endl;
 	for (int i = 1; i < ac; i++)
 	{
 		if ((strcmp(av[i], "-v") == 0 || strcmp(av[i], "--verbose") == 0))
@@ -38,7 +39,8 @@ int main (int ac, char *av[])
 		else if (strcmp(av[i], "-g") == 0 || strcmp(av[i], "-generate") == 0)
 		{
 			i++;
-			if (i >= ac)	errorQuit("Error: expect number >= 3 after -g or --generate.");
+			if (i >= ac)
+				errorQuit("Error: expect number >= 3 after -g or --generate.");
 			generatesize = get_generatesize(av[i]);
 		}
 		else if (generatesize == 0)
@@ -50,7 +52,6 @@ int main (int ac, char *av[])
 		else if (i < ac)
 			errorQuit("Error: unexpected argument");
 	}
-
 	if (maparg == false)
 		map = (generatesize == 0) ? mapcreator.createMapFromStdin() : mapcreator.generateRefMap(generatesize);
 	if (!isSolvable(map))
@@ -59,7 +60,6 @@ int main (int ac, char *av[])
 		return (0);
 	}
 	ref =  mapcreator.createRefMap(map.getDim());
-
 	if (npuzzle(map, ref, verbose, distflag))
 		std::cout << "Resolu !" << std::endl;
 	else

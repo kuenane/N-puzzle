@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 12:47:46 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 10:43:38 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 15:35:38 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -77,8 +77,8 @@ std::ostream					&operator<<(std::ostream &os, Map const &obj){
 	for (unsigned int i = 0; i < (map_tmp.getDim() * map_tmp.getDim()); i++)
 	{
 		if (i > 0 && (i % map_tmp.getDim()) == 0)
-			os << std::endl;
-		os << map_tmp.getMap().at(i);
+			os  << std::endl;
+		os << std::setw(2) << map_tmp.getMap().at(i);
 		if (i < ((map_tmp.getDim() * map_tmp.getDim()) - 1))
 			os << " ";
 	}

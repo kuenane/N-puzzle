@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/26 09:14:04 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 10:40:06 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 15:09:15 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 #ifndef MAP_HPP
@@ -15,7 +15,7 @@
 # include <iostream>
 # include <vector>
 # include <cmath>
-
+# include <iomanip>
 # define EUCLIDEAN 0
 # define MANHATTAN 1
 # define HAMMING 2

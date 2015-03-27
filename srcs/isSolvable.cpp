@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/26 09:36:42 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 09:37:13 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 15:04:38 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,7 +39,9 @@ bool		isSolvable(Map &map)
     map.reverseMap();
     // Works only with odd width map
     // For even width map : https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
-    return (invCount%2 == 1);
+	if (map.getDim() % 2 == 1)
+		return (invCount%2 == 1);
+	return true;
 }
  
 // /* Driver progra to test above functions */

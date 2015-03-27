@@ -6,7 +6,7 @@
 #    By: vlehuger <vlehuger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/04 09:28:52 by vlehuger          #+#    #+#              #
-#    Updated: 2015/03/27 12:38:09 by dcojan           ###   ########.fr        #
+#    Updated: 2015/03/27 15:07:59 by dcojan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ INCLUDES = ./includes/
 
 BREWINC = $(HOME)/.brew/Cellar/boost/1.57.0/include/
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -O2  -Wall -Werror -Wextra
 CLANG = clang++
 
 all: $(NAME)
