@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 10:41:33 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 11:09:47 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -21,18 +21,21 @@ int main (int ac, char *av[])
 	bool							verbose = false;
 	int								distflag = EUCLIDEAN;
 	bool							maparg;
+	int								generatesize;
+
 	for (int i = 1; i < ac; i++)
 	{
 		if ((strcmp(av[i], "-v") == 0 || strcmp(av[i], "--verbose") == 0))
 			verbose = true;
 		else if ((strcmp(av[i], "-h") == 0 || strcmp(av[i], "--help") == 0))
 		{
-			std::cout << "usage: n_puzzle [-h] [-v] [-d DISTANCE] filename\n"
-					  << "usage: [stdin] | n_puzzle [-h] [-v] [-d DISTANCE]\n\n"
+			std::cout << "usage: n_puzzle [-h] [-v] [-d DISTANCE] [-g SIZE]filename\n"
+					  << "usage: [stdin] | n_puzzle [-h] [-v] [-d DISTANCE] [-g SIZE]\n\n"
 					  << "optional argument:\n"
 					  << "  -h, --help\t\t\t\tShow this message and exit.\n"
 					  << "  -v, --verbose\t\t\t\tVerbose mode.\n"
 					  << "  -d DISTANCE, --distance DISTANCE\tDistance algorithm\n"
+					  << "  -g SIZE, --generate SIZE\t\tgenerate a SIZE ref map, SIZE >= 3\n"
 					  << "  DISTANCE (default 0):\n\t\t0 for euclidean\n\t\t1 for manhattan\n\t\t2 for hamming\n"
 					  << std::endl;
 			exit(EXIT_SUCCESS);
@@ -56,6 +59,21 @@ int main (int ac, char *av[])
 				exit(EXIT_FAILURE);
 			}
 		}
+		else if (strcmp(av[i], "-g") == 0 || strcmp(av[i], "-generate") == 0)
+		{
+			i++;
+			if (i >= ac)
+			{
+				std::cout << "Error: expect number >= 3 after -g or --generate."<< std::endl;
+				exit(EXIT_FAILURE);
+			}
+			generatesize = atoi(av[i]);
+			if (generatesize < 3)
+			{
+				std::cout << "Error: expect number >= 3 after -g or --generate."<< std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
 		else
 		{
 			maparg = true;
@@ -75,7 +93,7 @@ int main (int ac, char *av[])
 		std::cout << "Map unsolvable !" << std::endl;
 		return (0);
 	}
-	ref = mapcreator.createRefMap(map.getDim());
+	ref = (generatesize == 0) ? mapcreator.createRefMap(map.getDim()) : mapcreator.generateRefMap(generatesize);
 
 	if (npuzzle(map, ref, verbose, distflag))
 		std::cout << "Resolu !" << std::endl;

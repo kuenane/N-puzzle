@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:04:27 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/25 12:01:01 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 11:05:41 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -134,7 +134,25 @@ Map				MapCreator::getInputMap(std::istream& is)
 	return Map(array, size);
 }
 
-Map				MapCreator::createRefMap(int size)
+int MapCreator::ft_random (int i)
+{
+	return std::rand()%i;
+}
+
+Map									MapCreator::generateRefMap(unsigned int width_size)
+{
+	std::srand (unsigned (std::time(0)));
+	std::vector<unsigned int>		v;
+
+	for (unsigned int i = 0; i < width_size * width_size; i++)
+		v.push_back(i);
+	std::random_shuffle(v.begin(), v.end(), ft_random);
+
+	return (Map(v, width_size));
+}
+
+
+Map									MapCreator::createRefMap(int size)
 {
 	std::vector<unsigned int>			map((size * size), 0);
 	unsigned int						value = 1;

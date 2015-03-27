@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:07:40 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/26 09:37:50 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 11:02:53 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -32,9 +32,6 @@ bool				npuzzle(Map map, Map ref, bool verbose,int distflag);
 std::string			&trim(std::string &s);
 bool				presentInVec(std::vector<Node*> v, Map map);
 void				printSolution(Node *node, int &count, bool verbose);
-
-// generator.cpp
-std::vector<unsigned int>			generator(unsigned int width_size);
 
 //isSolvable.cpp
 bool								isSolvable(Map &map);

@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:10:05 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/25 11:59:58 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 11:06:01 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -26,8 +26,11 @@ public:
 	Map			createMapFromStdin();
 	Map			createMapFromArg(std::string arg);
 	Map			createRefMap(int size);
+	Map			generateRefMap(unsigned int size);
 
 private:
+	static int ft_random (int i);
+
 	static std::vector<unsigned int>			split_line(std::string line, std::string delimiter, int size);
 	static bool									is_already_in(std::vector<unsigned int> &array, unsigned int nb);
 	static unsigned int							getMapSize(std::istream& is);
