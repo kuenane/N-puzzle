@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/27 15:05:09 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 15:56:24 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,7 +23,6 @@ int main (int ac, char *av[])
 	bool							maparg = false;
 	int								generatesize = 0;
 
-	std::cout << "MAIN START !" << std::endl;
 	for (int i = 1; i < ac; i++)
 	{
 		if ((strcmp(av[i], "-v") == 0 || strcmp(av[i], "--verbose") == 0))
