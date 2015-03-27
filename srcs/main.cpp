@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 09:54:52 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/27 11:09:47 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 12:39:09 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -21,79 +21,44 @@ int main (int ac, char *av[])
 	bool							verbose = false;
 	int								distflag = EUCLIDEAN;
 	bool							maparg;
-	int								generatesize;
+	int								generatesize = 0;
 
 	for (int i = 1; i < ac; i++)
 	{
 		if ((strcmp(av[i], "-v") == 0 || strcmp(av[i], "--verbose") == 0))
 			verbose = true;
 		else if ((strcmp(av[i], "-h") == 0 || strcmp(av[i], "--help") == 0))
-		{
-			std::cout << "usage: n_puzzle [-h] [-v] [-d DISTANCE] [-g SIZE]filename\n"
-					  << "usage: [stdin] | n_puzzle [-h] [-v] [-d DISTANCE] [-g SIZE]\n\n"
-					  << "optional argument:\n"
-					  << "  -h, --help\t\t\t\tShow this message and exit.\n"
-					  << "  -v, --verbose\t\t\t\tVerbose mode.\n"
-					  << "  -d DISTANCE, --distance DISTANCE\tDistance algorithm\n"
-					  << "  -g SIZE, --generate SIZE\t\tgenerate a SIZE ref map, SIZE >= 3\n"
-					  << "  DISTANCE (default 0):\n\t\t0 for euclidean\n\t\t1 for manhattan\n\t\t2 for hamming\n"
-					  << std::endl;
-			exit(EXIT_SUCCESS);
-		}
+			display_usage();
 		else if ((strcmp(av[i], "-d") == 0 || strcmp(av[i], "--distance") == 0))
 		{
 			i++;
-			if (i >= ac)
-			{
-				std::cout << "Error: expect 0 or 2 after -d or --distance."<< std::endl;
-				exit(EXIT_FAILURE);
-			}
-			if (strcmp(av[i], "0") == 0)
-				distflag = EUCLIDEAN;
-			else if (strcmp(av[i], "1") == 0)
-				distflag = MANHATTAN;
-			else if (strcmp(av[i], "2") == 0)
-				distflag = HAMMING;
-			else {
-				std::cout << "Error: expect 0 to 2 after -d or --distance."<< std::endl;
-				exit(EXIT_FAILURE);
-			}
+			if (i >= ac)	errorQuit("Error: expect 0 or 2 after -d or --distance.");
+			distflag = get_dist_flag(av[i]);
 		}
 		else if (strcmp(av[i], "-g") == 0 || strcmp(av[i], "-generate") == 0)
 		{
 			i++;
-			if (i >= ac)
-			{
-				std::cout << "Error: expect number >= 3 after -g or --generate."<< std::endl;
-				exit(EXIT_FAILURE);
-			}
-			generatesize = atoi(av[i]);
-			if (generatesize < 3)
-			{
-				std::cout << "Error: expect number >= 3 after -g or --generate."<< std::endl;
-				exit(EXIT_FAILURE);
-			}
+			if (i >= ac)	errorQuit("Error: expect number >= 3 after -g or --generate.");
+			generatesize = get_generatesize(av[i]);
 		}
-		else
+		else if (generatesize == 0)
 		{
 			maparg = true;
 			map = mapcreator.createMapFromArg(av[i]);
 			i++;
-			if (i < ac)
-			{
-				std::cout << "Error: unexpected argument"<< std::endl;
-				exit(EXIT_FAILURE);
-			}
 		}
+		else if (i < ac)
+			errorQuit("Error: unexpected argument");
 	}
-	if (maparg ==false)
-		map = mapcreator.createMapFromStdin();
+
+	if (maparg == false)
+		map = (generatesize == 0) ? mapcreator.createMapFromStdin() : mapcreator.generateRefMap(generatesize);
 	if (!isSolvable(map))
 	{
 		std::cout << "Map unsolvable !" << std::endl;
 		return (0);
 	}
-	ref = (generatesize == 0) ? mapcreator.createRefMap(map.getDim()) : mapcreator.generateRefMap(generatesize);
+	ref =  mapcreator.createRefMap(map.getDim());
 
 	if (npuzzle(map, ref, verbose, distflag))
 		std::cout << "Resolu !" << std::endl;

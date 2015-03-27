@@ -6,7 +6,7 @@
 //   By: dcojan <dcojan@student.42.fr>              +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/03/23 10:07:40 by dcojan            #+#    #+#             //
-//   Updated: 2015/03/27 11:02:53 by dcojan           ###   ########.fr       //
+//   Updated: 2015/03/27 12:37:44 by dcojan           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -34,4 +34,10 @@ bool				presentInVec(std::vector<Node*> v, Map map);
 void				printSolution(Node *node, int &count, bool verbose);
 
 //isSolvable.cpp
-bool								isSolvable(Map &map);
+bool				isSolvable(Map &map);
+
+//options.cpp
+void				errorQuit(std::string error);
+void				display_usage();
+int					get_dist_flag(char *av);
+int					get_generatesize(char *av);
